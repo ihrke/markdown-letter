@@ -1,0 +1,155 @@
+%---------------------------------------------------------------------------
+% uitletter.latex by <matthias.mittner@uit.no>
+% Mimicking official letter style from University of Tromso, Norway
+% to be used as a pandoc template.
+%
+% Original file:
+%
+% scrlttr2.tex v0.3. (c) by Juergen Fenn <juergen.fenn@gmx.de>
+% Template for a letter to be typeset with scrlttr2.cls from KOMA-Script.
+% Latest version of the LaTeX Project Public License is applicable.
+% File may not be modified and redistributed under the same name
+% without the author's prior consent.
+%---------------------------------------------------------------------------
+\documentclass%%
+%---------------------------------------------------------------------------
+  [$if(fontsize)$fontsize=$fontsize$,$endif$%%          Schriftgroesse
+%---------------------------------------------------------------------------
+% Satzspiegel
+   paper=a4,%%               Papierformat
+   enlargefirstpage=on,%%    Erste Seite anders
+   pagenumber=headright,%%   Seitenzahl oben mittig
+%---------------------------------------------------------------------------
+% Layout
+   headsepline=on,%%         Linie unter der Seitenzahl
+   parskip=half,%%           Abstand zwischen Absaetzen
+%---------------------------------------------------------------------------
+% Briefkopf und Anschrift
+   fromalign=right,%%        Plazierung des Briefkopfs
+   fromphone=off,%%           Telefonnummer im Absender
+   fromrule=off,%%           Linie im Absender (aftername, afteraddress)
+   fromfax=off,%%            Faxnummer
+   fromemail=off,%%          Emailadresse
+   fromurl=off,%%            Homepage
+   fromlogo=on,%%           Firmenlogo
+   addrfield=on,%%           Adressfeld fuer Fensterkuverts
+   backaddress=on,%%          ...und Absender im Fenster
+   subject=beforeopening,%%  Plazierung der Betreffzeile
+   locfield=narrow,%%        zusaetzliches Feld fuer Absender
+   foldmarks=on,%%           Faltmarken setzen
+   numericaldate=off,%%      Datum numerisch ausgeben
+   refline=narrow,%%         Geschaeftszeile im Satzspiegel
+%---------------------------------------------------------------------------
+% Formatierung
+   firstfoot=on,
+   draft=off%%                Entwurfsmodus
+]{scrlttr2}
+%---------------------------------------------------------------------------
+%\usepackage{english}%german}
+\usepackage$if(language)$[$language$]$endif${babel}
+\usepackage{color}
+%\usepackage[T1]{fontenc}
+\usepackage[utf8]{inputenc}
+\usepackage{url}
+\usepackage{graphicx}
+\usepackage[right]{eurosym}
+%---------------------------------------------------------------------------
+% Fonts
+\setkomafont{fromname}{\sffamily\LARGE}
+\setkomafont{fromaddress}{\sffamily}%% statt \small
+\setkomafont{pagenumber}{\sffamily}
+\setkomafont{subject}{\mdseries}
+\setkomafont{backaddress}{\mdseries}
+
+\usepackage{mathptmx}%% Schrift Times
+%\usepackage{mathpazo}%% Schrift Palatino
+%\setkomafont{fromname}{\LARGE}
+%---------------------------------------------------------------------------
+\begin{document}
+%---------------------------------------------------------------------------
+% Briefstil und Position des Briefkopfs
+%\LoadLetterOption{DINmtext}%DINmtext} %% oder: DINmtext, SN, SNleft, KOMAold.
+
+%---------------------------------------------------------------------------
+\setkomavar{fromaddress}{
+\vspace{1.5cm}
+\begin{minipage}[t]{.4\textwidth}
+\textbf{\textsf{\scriptsize Institutt for Psykologi}}\\
+$if(author.name)${\sf\scriptsize $author.name$$if(author.position)$, $author.position$$endif$}\\$endif$
+$if(references)$
+{\sf\scriptsize  Deres ref.: $if(references.yours)$$references.yours$$endif$}\\
+{\sf\scriptsize  Vår ref.: $if(references.ours)$$references.ours$$endif$}\\
+$endif$
+{\sf\scriptsize  \today}\\
+$if(references)$
+\textbf{\textsf{\scriptsize Unntatt offentlighet jf: offl. § 25,1}}\\
+$endif$
+\end{minipage}
+}
+\setkomavar{backaddressseparator}{. }
+\setkomavar{signature}{}
+%---------------------------------------------------------------------------
+%\firsthead{Frei gestalteter Briefkopf}
+%---------------------------------------------------------------------------
+\makeatletter
+\@setplength{firstfootvpos}{26cm}
+\makeatother
+
+\setkomavar{firstfoot}{{\sf\scriptsize Postboks 6050 Langnes,
+N-9037 Tromsø {\color{blue}/} 77 64 40 00 {\color{blue}/}
+postmottak@uit.no {\color{blue}/}  uit.no}\hfill\includegraphics[width=2cm]{pics/Logo_norsk_pos}}
+%---------------------------------------------------------------------------
+% Geschaeftszeilenfelder
+%\setkomavar{place}{Ort}
+%\setkomavar{placeseparator}{, den }
+\setkomavar{date}{}
+\setkomavar{backaddress}{$if(author.backaddress)$$author.backaddress$$endif$}
+\setkomavar{fromlogo}{\raisebox{1.9cm}{\includegraphics[width=3cm]{pics/norges_arktiske}}}
+\setkomavar{enclseparator}{: }
+
+%---------------------------------------------------------------------------
+% Seitenstil
+\pagestyle{plain}%% keine Header in der Kopfzeile
+%---------------------------------------------------------------------------
+\begin{letter}{
+$for(address)$$address$$sep$\\$endfor$
+}
+
+
+
+%---------------------------------------------------------------------------
+% Weitere Optionen
+\KOMAoptions{%%
+}
+%---------------------------------------------------------------------------
+\setkomavar{subject}{\textsf{\textbf{$if(title)$$title$$endif$}}}
+%---------------------------------------------------------------------------
+\opening{$if(opening)$$opening$$endif$}
+
+$body$
+
+
+%\setkomavar{signature}{
+
+$if(closing)$$closing$$endif$
+\vspace{1cm}
+
+\begin{minipage}{.5\textwidth}
+$if(author.name)$$author.name$\\$endif$
+$if(author.position)$$author.position$\\$endif$
+--\\
+$if(author.email)$\texttt{$author.email$}\\$endif$
+$if(author.phone)$Tel: $author.phone$\\$endif$
+\end{minipage}
+%}
+
+%\closing{Vennlig hilsen,}
+
+%---------------------------------------------------------------------------
+%\ps{PS:}
+%\cc{}
+%---------------------------------------------------------------------------
+\end{letter}
+%---------------------------------------------------------------------------
+\end{document}
+%---------------------------------------------------------------------------
