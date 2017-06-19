@@ -1,0 +1,205 @@
+%---------------------------------------------------------------------------
+% uitletter.latex by <matthias.mittner@uit.no>
+% Mimicking official letter style from University of Tromso, Norway
+% to be used as a pandoc template.
+%
+% Original file:
+%
+% scrlttr2.tex v0.3. (c) by Juergen Fenn <juergen.fenn@gmx.de>
+% Template for a letter to be typeset with scrlttr2.cls from KOMA-Script.
+% Latest version of the LaTeX Project Public License is applicable.
+% File may not be modified and redistributed under the same name
+% without the author's prior consent.
+%---------------------------------------------------------------------------
+\documentclass%%
+%---------------------------------------------------------------------------
+  [$if(fontsize)$fontsize=$fontsize$,$endif$%%          Schriftgroesse
+%---------------------------------------------------------------------------
+% Satzspiegel
+   paper=a4,%%               Papierformat
+   enlargefirstpage=on,%%    Erste Seite anders
+   pagenumber=headright,%%   Seitenzahl oben mittig
+%---------------------------------------------------------------------------
+% Layout
+   headsepline=on,%%         Linie unter der Seitenzahl
+   parskip=half,%%           Abstand zwischen Absaetzen
+%---------------------------------------------------------------------------
+% Briefkopf und Anschrift
+   fromalign=right,%%        Plazierung des Briefkopfs
+   fromphone=off,%%           Telefonnummer im Absender
+   fromrule=off,%%           Linie im Absender (aftername, afteraddress)
+   fromfax=off,%%            Faxnummer
+   fromemail=off,%%          Emailadresse
+   fromurl=off,%%            Homepage
+   fromlogo=on,%%           Firmenlogo
+   addrfield=on,%%           Adressfeld fuer Fensterkuverts
+   backaddress=on,%%          ...und Absender im Fenster
+   subject=beforeopening,%%  Plazierung der Betreffzeile
+   locfield=narrow,%%        zusaetzliches Feld fuer Absender
+   foldmarks=on,%%           Faltmarken setzen
+   numericaldate=off,%%      Datum numerisch ausgeben
+   refline=narrow,%%         Geschaeftszeile im Satzspiegel
+%---------------------------------------------------------------------------
+% Formatierung
+   firstfoot=on,
+   draft=off%%                Entwurfsmodus
+]{scrlttr2}
+%---------------------------------------------------------------------------
+%% "old" font commands brought back
+\makeatletter
+\DeclareOldFontCommand{\rm}{\normalfont\rmfamily}{\mathrm}
+\DeclareOldFontCommand{\sf}{\normalfont\sffamily}{\mathsf}
+\DeclareOldFontCommand{\tt}{\normalfont\ttfamily}{\mathtt}
+\DeclareOldFontCommand{\bf}{\normalfont\bfseries}{\mathbf}
+\DeclareOldFontCommand{\it}{\normalfont\itshape}{\mathit}
+\DeclareOldFontCommand{\sl}{\normalfont\slshape}{\@nomath\sl}
+\DeclareOldFontCommand{\sc}{\normalfont\scshape}{\@nomath\sc}
+\makeatother
+%---------------------------------------------------------------------------
+% no sections in letter but still want to use # something in markdown
+\newcommand{\section}[1]{\textsf{\textbf{{#1}}}}
+\newcommand{\subsection}[1]{\textsf{\textbf{{#1}}}}
+\newcommand{\subsubsection}[1]{\textrm{{#1}}}
+%---------------------------------------------------------------------------
+% tighlist-problem
+% https://tex.stackexchange.com/questions/257418/error-tightlist-converting-md-file-into-pdf-using-pandoc?rq=1
+\providecommand{\tightlist}{%
+  \setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
+%---------------------------------------------------------------------------
+% response to Reviewers
+%\newenvironment{\response}{{\color{blue}}}
+
+\usepackage[most]{tcolorbox}
+\definecolor{block-gray}{gray}{0.95}
+
+
+\newtcolorbox{zitat}[2][]{%
+    colback=block-gray,
+    grow to right by=-1mm,
+    grow to left by=-5mm,
+    boxrule=0pt,
+    boxsep=0pt,
+    breakable,
+    enhanced jigsaw,
+    borderline west={4pt}{0pt}{gray},
+    title={#2\par},
+    colbacktitle={block-gray},
+    coltitle={black},
+    fonttitle={\itshape},
+    attach title to upper={},
+    #1,
+}
+\renewenvironment{quote}{\begin{zitat}{Response:}}{\end{zitat}}
+
+
+
+%---------------------------------------------------------------------------
+%\usepackage{english}%german}
+\usepackage$if(language)$[$language$]$endif${babel}
+\usepackage{color}
+%\usepackage[T1]{fontenc}
+\usepackage[utf8]{inputenc}
+\usepackage{url}
+\usepackage{graphicx}
+\usepackage[right]{eurosym}
+\usepackage{hyperref}
+\usepackage{adjustbox}
+\usepackage{xcolor}
+\hypersetup{breaklinks=true,
+            bookmarks=true,
+            pdfauthor={$author-meta$},
+            pdftitle={$title-meta$},
+            colorlinks=true,
+            citecolor=$if(citecolor)$$citecolor$$else$blue$endif$,
+            urlcolor=$if(urlcolor)$$urlcolor$$else$blue$endif$,
+            linkcolor=$if(linkcolor)$$linkcolor$$else$magenta$endif$,
+            pdfborder={0 0 0}}
+%---------------------------------------------------------------------------
+% Fonts
+\setkomafont{fromname}{\sffamily\LARGE}
+\setkomafont{fromaddress}{\sffamily}%% statt \small
+\setkomafont{pagenumber}{\sffamily}
+\setkomafont{subject}{\mdseries}
+\setkomafont{backaddress}{\mdseries}
+
+\usepackage{mathptmx}%% Schrift Times
+%\usepackage{mathpazo}%% Schrift Palatino
+%\setkomafont{fromname}{\LARGE}
+%---------------------------------------------------------------------------
+\begin{document}
+%---------------------------------------------------------------------------
+% Briefstil und Position des Briefkopfs
+%\LoadLetterOption{DINmtext}%DINmtext} %% oder: DINmtext, SN, SNleft, KOMAold.
+
+%---------------------------------------------------------------------------
+\setkomavar{fromaddress}{
+\vspace{1.5cm}
+\begin{minipage}[t]{.4\textwidth}
+\textbf{\textsf{\scriptsize Department of Psychology}}\\
+$if(author.name)${\sf\scriptsize $author.name$$if(author.position)$, $author.position$$endif$}\\$endif$
+$if(references)$
+{\sf\scriptsize  Deres ref.: $if(references.yours)$$references.yours$$endif$}\\
+{\sf\scriptsize  Vår ref.: $if(references.ours)$$references.ours$$endif$}\\
+$endif$
+{\sf\scriptsize  \today}\\
+$if(references)$
+\textbf{\textsf{\scriptsize Unntatt offentlighet jf: offl. § 25,1}}\\
+$endif$
+\end{minipage}
+}
+\setkomavar{backaddressseparator}{. }
+\setkomavar{signature}{}
+%---------------------------------------------------------------------------
+%\firsthead{Frei gestalteter Briefkopf}
+%---------------------------------------------------------------------------
+\makeatletter
+\@setplength{firstfootvpos}{26cm}
+\makeatother
+
+\setkomavar{firstfoot}{{\sf\scriptsize Postboks 6050 Langnes,
+N-9037 Tromsø {\color{blue}/} 77 64 40 00 {\color{blue}/}
+postmottak@uit.no {\color{blue}/}  uit.no}\hfill\includegraphics[width=2cm]{pics/Logo_norsk_pos}}
+%---------------------------------------------------------------------------
+% Geschaeftszeilenfelder
+%\setkomavar{place}{Ort}
+%\setkomavar{placeseparator}{, den }
+\setkomavar{date}{}
+\setkomavar{backaddress}{$if(author.backaddress)$$author.backaddress$$endif$}
+%\hspace*{-2cm}
+%\setkomavar{fromlogo}{\raisebox{-5.9cm}{\vspace*{-13.5cm}{\hspace*{-3.5cm}{\includegraphics[trim=-3.5cm 0 0 -3.5cm, width=3cm]{pics/UiT_Navn_linje_en_turkis2}}}}}
+%\setkomavar{fromlogo}{\raisebox{-1.3cm}{\includegraphics[trim=3.7cm 0 0 2.2cm, width=6cm]{pics/UiT_Navn_linje_en_turkis2}}}
+\setkomavar{fromlogo}{\raisebox{1.9cm}{\includegraphics[width=3cm]{pics/norges_arktiske}}}
+\setkomavar{enclseparator}{: }
+
+%---------------------------------------------------------------------------
+% Seitenstil
+\pagestyle{plain}%% keine Header in der Kopfzeile
+%---------------------------------------------------------------------------
+\begin{letter}{
+$for(address)$$address$$sep$\\$endfor$
+}
+
+
+
+%---------------------------------------------------------------------------
+% Weitere Optionen
+\KOMAoptions{%%
+}
+%---------------------------------------------------------------------------
+\setkomavar{subject}{\textsf{\textbf{$if(title)$$title$$endif$}}}
+%---------------------------------------------------------------------------
+\opening{$if(opening)$$opening$$endif$}
+
+$body$
+
+
+%---------------------------------------------------------------------------
+%\ps{PS:}
+%\cc{}
+
+
+%---------------------------------------------------------------------------
+\end{letter}
+%---------------------------------------------------------------------------
+\end{document}
+%---------------------------------------------------------------------------
