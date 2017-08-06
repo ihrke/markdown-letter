@@ -21,6 +21,10 @@ all: $(PDF_FILES)
 %.tex: %.md $(TEMPLATE)
 	$(PANDOC) -s -S --filter pandoc-fignos --template $(TEMPLATE) $< -o $@
 
+watch: $(MD_FILES) $(BIBLIOGRAPHY)
+	fswatch -o $^ | xargs -n1 -I{} make
+
+
 .PHONY : clean
 clean :
 	-rm $(PDF_FILES) $(TEX_FILES) *.aux *.out *.log *.fdb_latexmk *.fls *.synctex.gz
