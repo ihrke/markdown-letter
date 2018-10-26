@@ -6,6 +6,7 @@ author:
   email: matthias.mittner@uit.no
   phone: 47185978
   backaddress: M. Mittner, Huginbakken 32, 9007 Tromsø
+  signature: pics/mittnersig.png
 address:
 - To whom it may concern
 opening: Dear Sir or Madam,

@@ -135,6 +135,7 @@ $if(closing)$$closing$$endif$
 \vspace{1cm}
 
 \begin{minipage}{.5\textwidth}
+$if(author.signature)$\includegraphics[width=0.5\textwidth]{$author.signature$}\\$endif$
 $if(author.name)$$author.name$\\$endif$
 $if(author.position)$$author.position$\\$endif$
 --\\
