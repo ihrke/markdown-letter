@@ -75,12 +75,12 @@
 \vspace{1.5cm}
 \begin{minipage}[t]{.4\textwidth}
 \textbf{\textsf{\scriptsize Institutt for Psykologi}}\\
-$if(author.name)${\sf\scriptsize $author.name$$if(author.position)$, $author.position$$endif$}\\$endif$
+$if(author.name)${\sffamily\scriptsize $author.name$$if(author.position)$, $author.position$$endif$}\\$endif$
 $if(references)$
-{\sf\scriptsize  Deres ref.: $if(references.yours)$$references.yours$$endif$}\\
-{\sf\scriptsize  Vår ref.: $if(references.ours)$$references.ours$$endif$}\\
+{\sffamily\scriptsize  Deres ref.: $if(references.yours)$$references.yours$$endif$}\\
+{\sffamily\scriptsize  Vår ref.: $if(references.ours)$$references.ours$$endif$}\\
 $endif$
-{\sf\scriptsize  \today}\\
+{\sffamily\scriptsize  \today}\\
 $if(references)$
 \textbf{\textsf{\scriptsize Unntatt offentlighet jf: offl. § 25,1}}\\
 $endif$
@@ -95,7 +95,7 @@ $endif$
 \@setplength{firstfootvpos}{26cm}
 \makeatother
 
-\setkomavar{firstfoot}{{\sf\scriptsize Postboks 6050 Langnes,
+\setkomavar{firstfoot}{{\sffamily\scriptsize Postboks 6050 Langnes,
 N-9037 Tromsø {\color{blue}/} 77 64 40 00 {\color{blue}/}
 postmottak@uit.no {\color{blue}/}  uit.no}\hfill\includegraphics[width=2cm]{pics/Logo_norsk_pos}}
 %---------------------------------------------------------------------------
