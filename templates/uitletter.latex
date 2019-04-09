@@ -86,6 +86,8 @@ $if(references)$
 $endif$
 \end{minipage}
 }
+\providecommand{\tightlist}{%
+  \setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
 \setkomavar{backaddressseparator}{. }
 \setkomavar{signature}{}
 %---------------------------------------------------------------------------
